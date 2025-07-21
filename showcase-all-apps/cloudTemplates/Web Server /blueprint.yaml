@@ -1,7 +1,7 @@
 formatVersion: 1
 name: Web Servers
 description: Showcase Web server
-version: 1
+version: 2
 inputs:
   web_vm_name:
     type: string
@@ -12,6 +12,7 @@ inputs:
     type: string
     title: Virtual Machine Size
     description: Select a Virtual Machine Size
+    default: best-effort-xsmall
     oneOf:
       - title: xSmall (2 vCPUs - 2 GiB MEM)
         const: best-effort-xsmall
@@ -21,13 +22,6 @@ inputs:
         const: best-effort-medium
       - title: Large (4 vCPUs - 16 GiB MEM)
         const: best-effort-large
-  namespace:
-    type: string
-    title: Target Namespace
-    description: Select the target Namespace
-    oneOf:
-      - title: production
-        const: production-v26b4
   username:
     type: string
     description: The username you would like to have for the admin account.
@@ -44,7 +38,7 @@ resources:
   Namespace:
     type: CCI.Supervisor.Namespace
     properties:
-      name: ${input.namespace}
+      name: ${env.projectName == "default-project" ? "development-nhyfz" :"production-v26b4"}
       existing: true
   SSH_HTTP_LB:
     type: CCI.Supervisor.Resource
