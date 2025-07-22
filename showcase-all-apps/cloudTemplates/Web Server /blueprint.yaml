@@ -1,7 +1,7 @@
 formatVersion: 1
 name: Web Servers
 description: Showcase Web server
-version: 2
+version: 3
 inputs:
   web_vm_name:
     type: string
@@ -38,7 +38,7 @@ resources:
   Namespace:
     type: CCI.Supervisor.Namespace
     properties:
-      name: ${env.projectName == "default-project" ? "development-nhyfz" :"production-v26b4"}
+      name: ${env.projectName == "default-project" ? propgroup.namespace.development :propgroup.namespace.production}
       existing: true
   SSH_HTTP_LB:
     type: CCI.Supervisor.Resource
